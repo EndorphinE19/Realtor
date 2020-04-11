@@ -54,7 +54,7 @@ export default {
             return new Promise(async (res: Function, rej: Function) => {
 
                 try {
-                    await firebase.database().ref('/realtors').child(ctx.state.realtors[ctx.state.realtors.length - 1 || 0].id).set({
+                    await firebase.database().ref('/realtors').child(ctx.state.realtors[ctx.state.realtors.length + - 1].id + 1).set({
                         id: ctx.state.realtors[ctx.state.realtors.length - 1 || 0].id + 1,
                         guid: ctx.state.realtors[ctx.state.realtors.length - 1 || 0].guid + 1,
                         firstname: data.firstname,

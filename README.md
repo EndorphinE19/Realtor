@@ -3,6 +3,11 @@
 ## Project setup
 ```
 npm install
+
+and
+npm install buefy
+and
+npm install firebase
 ```
 
 ### Compiles and hot-reloads for development
