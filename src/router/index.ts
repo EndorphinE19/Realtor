@@ -19,6 +19,11 @@ Vue.use(VueRouter)
     path: '/listrealtor',
     name: 'ListRealtor',
     component: () => import('../views/ListRealtor.vue')
+  },
+  {
+    path: '/newrealtor',
+    name: 'NewRealtor',
+    component: () => import('../views/NewRealtor.vue')
   }
 ]
 

@@ -6,7 +6,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import {mapGetters} from 'vuex'
-import menus from './menus/menus'
+import menus from './menus/menus.vue'
 export default Vue.extend({
     name:'topPanel',
     computed:mapGetters(['getRealtors']),

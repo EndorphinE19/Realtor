@@ -39,6 +39,7 @@
                         </b-datepicker>
                     </b-field>
                     <b-button @click="saveDataRealtor" type="is-danger">Сохранить изменения</b-button>
+                    <b-button type="is-danger" icon-right="delete" @click="deleteRealtor" />
                 </div>
             </div>
         </div>
@@ -67,11 +68,11 @@ export default Vue.extend({
         }
     },
     methods: {
-        ...mapActions(['setRealtor', 'getArraySubdivisions']),
+        ...mapActions(['setRealtors', 'updateRealtor', 'removeRealtor', 'getArraySubdivisions']),
 
         async saveDataRealtor() {
             
-            this.setRealtor({
+            this.updateRealtor({
                 id: this.id,
                 guid: this.guid,
                 firstname: this.firstname,
@@ -98,6 +99,16 @@ export default Vue.extend({
                     ariaModal: true
                 })
             })
+        },
+
+        async deleteRealtor() {
+            this.removeRealtor(this.id)
+            .then(async res => {
+                await this.setRealtors(this.getRealtors)
+            })
+            .catch(e => {
+                console.log(e)
+            })
         }
     },
     computed:{
@@ -108,12 +119,19 @@ export default Vue.extend({
     }
 })
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .listrealtor-component {
         &__column {
             width: 48%;
             div {
                 text-align: left;
+            }
+        }
+
+        button {
+            margin-right: 10px;
+            &:last-of-type {
+                margin-right: 0;
             }
         }
     }

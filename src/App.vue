@@ -3,7 +3,8 @@
     <topPanel />
     <div id="nav">
       <div class="wrapper">
-        <router-view/>
+        
+        <router-view :realtors="getRealtors"></router-view>
       </div>
     </div>
   </div>
@@ -11,8 +12,8 @@
 </template>
 <script>
 import firebase from 'firebase/app'
-import topPanel from './components/topPanel'
-import {mapActions} from 'vuex'
+import topPanel from './components/topPanel.vue'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   data() {
     return {
@@ -21,36 +22,30 @@ export default {
     }
   },
   methods:mapActions(['getArrayRealtors']),
+  computed:mapGetters(['getRealtors']),
   async mounted(){
     this.getArrayRealtors()
     /*var date = new Date();
     var f = [
-      {lastname:'Foo', subdivision:'Москва', date: date.setFullYear(2020, 7, 12)},
-      {lastname:'Bar', subdivision:'Сочи', date: date.setFullYear(2020, 6, 1)},
-      {lastname:'Sam', subdivision:'Ростов', date: date.setFullYear(2020, 7, 2)},
-      {lastname:'Smit', subdivision:'Крансодар', date: date.setFullYear(2020, 4, 3)},
-      {lastname:'Smit', subdivision:'Лондон', date: date.setFullYear(2020, 4, 4)},
-      {lastname:'Foo', subdivision:'Ростов', date: date.setFullYear(2020, 2, 5)},
-      {lastname:'Foo', subdivision:'Сочи', date: date.setFullYear(2020, 7, 12)},
-      {lastname:'Bar', subdivision:'Москва', date: date.setFullYear(2020, 12, 17)},
-      {lastname:'Bar', subdivision:'Краснодар', date: date.setFullYear(2020, 1, 29)},
-      {lastname:'Andr', subdivision:'Ростов', date: date.setFullYear(2020, 3, 8)},
-      {lastname:'Andr', subdivision:'Лондон', date: date.setFullYear(2020, 4, 9)},
-      {lastname:'Main', subdivision:'Москва', date: date.setFullYear(2020, 4, 9)},
-      {lastname:'Main', subdivision:'Сочи', date: date.setFullYear(2020, 5, 15)},
-      {lastname:'Foo', subdivision:'Краснодар', date: date.setFullYear(2020, 8, 1)},
-      {lastname:'Foo', subdivision:'Лодон', date: date.setFullYear(2020, 8, 2)}
+      {id: 0, guid: 0, firstname:"John", lastname:'Foo', subdivision:'Москва', date: date.setFullYear(2020, 7, 12)},
+      {id: 1, guid: 1, firstname:"John", lastname:'Bar', subdivision:'Сочи', date: date.setFullYear(2020, 6, 1)},
+      {id: 2, guid: 2, firstname:"John", lastname:'Sam', subdivision:'Ростов', date: date.setFullYear(2020, 7, 2)},
+      {id: 3, guid: 3, firstname:"Anton", lastname:'Smit', subdivision:'Крансодар', date: date.setFullYear(2020, 4, 3)},
+      {id: 4, guid: 4, firstname:"Sara", lastname:'Smit', subdivision:'Лондон', date: date.setFullYear(2020, 4, 4)},
+      {id: 5, guid: 5, firstname:"Tom", lastname:'Foo', subdivision:'Ростов', date: date.setFullYear(2020, 2, 5)},
+      {id: 6, guid: 6, firstname:"Дима", lastname:'Foo', subdivision:'Сочи', date: date.setFullYear(2020, 7, 12)},
+      {id: 7, guid: 7, firstname:"Алексей", lastname:'Bar', subdivision:'Москва', date: date.setFullYear(2020, 12, 17)},
+      {id: 8, guid: 8, firstname:"Иван", lastname:'Bar', subdivision:'Краснодар', date: date.setFullYear(2020, 1, 29)},
+      {id: 9, guid: 9, firstname:"Кирилл", lastname:'Andr', subdivision:'Ростов', date: date.setFullYear(2020, 3, 8)},
+      {id: 10, guid: 10, firstname:"Katya", lastname:'Andr', subdivision:'Лондон', date: date.setFullYear(2020, 4, 9)},
+      {id: 11, guid: 11, firstname:"Oleg", lastname:'Main', subdivision:'Москва', date: date.setFullYear(2020, 4, 9)},
+      {id: 12, guid: 12, firstname:"Misha", lastname:'Main', subdivision:'Сочи', date: date.setFullYear(2020, 5, 15)},
+      {id: 13, guid: 13, firstname:"Tom", lastname:'Foo', subdivision:'Краснодар', date: date.setFullYear(2020, 8, 1)},
+      {id: 14, guid: 14, firstname:"Karl", lastname:'Foo', subdivision:'Лодон', date: date.setFullYear(2020, 8, 2)}
     ];
-    for (var i = 0; i <= f.length; i++) {
-      firebase.database().ref('/realtors').child(i).set({
-            date: f[i]['date'],
-            firstname: 'John',
-            guid: i,
-            id: i,
-            lastname: f[i]['lastname'],
-            subdivision: f[i]['subdivision']
-          });
-    }*/
+    
+    firebase.database().ref('/realtors').set(f);*/
+    
   },
   components: {
     topPanel

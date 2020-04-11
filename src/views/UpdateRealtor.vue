@@ -6,7 +6,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import {mapGetters, mapActions} from 'vuex'
-import listrealtor from '../components/listrealtor';
+import listrealtor from '../components/listrealtor.vue';
 export default Vue.extend({
     name:'NewRealtor',
     methods: {

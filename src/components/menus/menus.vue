@@ -3,6 +3,7 @@
         <ul>
             <li>
                 <router-link to="/">Главная</router-link>
+                <router-link  to="/newrealtor">Новый риэлтор</router-link>
                 <router-link  to="/listrealtor">Список риэлторов</router-link>
             </li>
             <li class="search-dot">

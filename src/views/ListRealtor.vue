@@ -4,7 +4,7 @@
             <b-field label="Фильтр по фамилии">
                 <b-select placeholder="Select a lastname" v-model="lastname" @input="keysSwitch('lastname')">
                     <option
-                        v-for="option in getRealtors"
+                        v-for="option in realtors"
                         :value="option.lastname"
                         :key="option.id">
                         {{ option.lastname }}
@@ -32,9 +32,10 @@
                 </b-datepicker>
             </b-field>
         </div>
-        <listrealtor :resultRealtor="resultRealtor" />
+        <b-loading v-if="realtors.length === 0" :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="true"></b-loading>
+        <listrealtor v-else :resultRealtor="resultRealtor" />
         <b-pagination
-            :total="getRealtors.length"
+            :total="realtors.length"
             :current.sync="current"
             :range-before="rangeBefore"
             :range-after="rangeAfter"
@@ -54,12 +55,17 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import listrealtor from '@/components/listrealtor';
+import listrealtor from '@/components/listrealtor.vue';
 import {mapActions, mapGetters} from 'vuex'
 
 export default Vue.extend({
+    props: {
+        realtors: Array
+    },
     name:'ListRealtor',
     data: () => ({
+            isFullPage: <Boolean>true,
+            isLoading: <Boolean>true,
             current: 1,
             perPage: <Number>5,
             rangeBefore: 1,
@@ -78,7 +84,8 @@ export default Vue.extend({
             toDate: <String>'',
             fromDate: <String>'',
             self: <Object>{to: <String>'', from: <String>''},
-            resultArr: []
+            resultArr: [],
+            radio: true
         }),
     methods: {
         ...mapActions(['getArrayRealtors']),
@@ -97,11 +104,16 @@ export default Vue.extend({
                 this.toDate = val
                 this.self.to = self
             }
+        },
+
+        openLoading() {
+            this.isLoading = true
+            setTimeout(() => {
+                this.isLoading = false
+            }, 10 * 1000)
         }
     },
     computed:{
-
-        ...mapGetters(['getRealtors']),
 
         arrayRealtorPaginate() {
             
@@ -118,9 +130,9 @@ export default Vue.extend({
             
             if (this.keys === 'lastname') {
                 return this.filterLastname.slice(start, end);
-            } else {
-                return this.getRealtors.slice(start, end);
             }
+
+            return this.realtors.slice(start, end);
         },
 
         resultRealtor() {
@@ -129,10 +141,10 @@ export default Vue.extend({
 
         filterLastname(): Array<any> {
 
-            return this.getRealtors.filter((item: any) => {
+            return this.realtors.filter((item: any) => {
                 
                 if (this.lastname === '') {
-                    return this.getRealtors
+                    return this.realtors
                 } else {
                     return item.lastname === this.lastname
                 }
@@ -141,10 +153,10 @@ export default Vue.extend({
 
         filterDate(): Array<any> {
             
-            return this.getRealtors.filter((item: any) => {
+            return this.realtors.filter((item: any) => {
                
                 if ((String(this.dateFilterTo) === '') && (String(this.dateFilterFrom) === '')) {
-                    return this.getRealtors
+                    return this.realtors
                 } else {
                     
                     if (((this.self.to === 'to') && (Date.parse(item.date) <= new Date(this.toDate))) || 
