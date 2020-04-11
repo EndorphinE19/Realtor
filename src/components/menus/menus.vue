@@ -13,7 +13,7 @@
                         :keep-first="keepFirst"
                         :open-on-focus="openOnFocus"
                         :data="filteredDataObj"
-                        field="lastname"
+                        field="searchName"
                         @select="option => setTemplate(option)">
                     </b-autocomplete>
                 </b-field>
@@ -23,8 +23,10 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import {mapGetters} from 'vuex'
 export default Vue.extend({
+    props: {
+        realtors: Array
+    },
     name:'menus',
     data() {
         return {
@@ -33,7 +35,8 @@ export default Vue.extend({
             openOnFocus: false,
             name: '',
             idUrl:'',
-            selected: null
+            selected: null,
+            arr: []
         }
     },
     methods: {
@@ -42,10 +45,22 @@ export default Vue.extend({
         }
     },
     computed: {
-        ...mapGetters(['getRealtors']),
+        
+        getRealtors() {
+
+            this.realtors.forEach((item: any) => {
+                this.arr.push({
+                    id: item.id,
+                    searchName: `${item.subdivision}, ${item.firstname}, ${item.lastname}`
+                })
+            })
+
+            return this.arr
+        },
+
         filteredDataObj() {
             return this.getRealtors.filter((option: any) => {
-                return option.lastname
+                return option.searchName
                     .toString()
                     .toLowerCase()
                     .indexOf(this.name.toLowerCase()) >= 0
