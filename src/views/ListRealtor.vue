@@ -11,7 +11,7 @@
                     </option>
                 </b-select>
             </b-field>
-            <b-field label="Фильтр по дате: До">
+            <b-field label="Фильтр по дате: От">
                 <b-datepicker
                     placeholder="Type or select a date..."
                     icon="calendar-today"
@@ -21,7 +21,7 @@
                     >
                 </b-datepicker>
             </b-field>
-            <b-field label="После">
+            <b-field label="До">
                 <b-datepicker
                     placeholder="Type or select a date..."
                     icon="calendar-today"
@@ -158,11 +158,21 @@ export default Vue.extend({
                 if ((String(this.dateFilterTo) === '') && (String(this.dateFilterFrom) === '')) {
                     return this.realtors
                 } else {
-                    
-                    if (((this.self.to === 'to') && (Date.parse(item.date) <= new Date(this.toDate))) || 
-                        ((this.self.from === 'from') && (new Date(this.fromDate) <= Date.parse(item.date)))) {
+
+                    if (((this.self.to === 'to') && (this.self.from === 'from'))) {
+                        if (((new Date(this.toDate) <= Date.parse(item.date)) && (Date.parse(item.date) <= new Date(this.fromDate)))) {
                             return item
-                    }
+                        }
+                    } else if (((this.self.to === 'to') && (Date.parse(item.date) >= new Date(this.toDate))) || 
+                        ((this.self.from === 'from') && (Date.parse(item.date) <= new Date(this.fromDate)))) {
+                            return item
+                        }
+                    /*
+                    if (
+                        ((this.self.to === 'to') && (Date.parse(item.date) >= new Date(this.toDate))) || 
+                        ((this.self.from === 'from') && (Date.parse(item.date) <= new Date(this.fromDate)))) {
+                            return item
+                    }*/
                 } 
             })
         }
