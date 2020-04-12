@@ -115,7 +115,7 @@ $w:white;
 
   .listrealtor-component {
         &__column {
-            margin: 15px 0;
+            margin: 15px;
             border: 1px solid $main-color; 
             padding: 15px;
             @include flexbox(flex, center, center, column, wrap);
