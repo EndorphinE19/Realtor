@@ -39,7 +39,7 @@
                         </b-datepicker>
                     </b-field>
                     <b-button @click="saveDataRealtor" type="is-danger">Сохранить изменения</b-button>
-                    <b-button type="is-danger" icon-right="delete" @click="deleteRealtor" />
+                    <b-button type="is-danger" :disabled="true" icon-right="delete" @click="deleteRealtor" />
                 </div>
             </div>
         </div>
