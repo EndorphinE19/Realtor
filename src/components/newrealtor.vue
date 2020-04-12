@@ -43,6 +43,7 @@ export default Vue.extend({
     methods: {
         ...mapActions(['createRealtor', 'getArraySubdivisions']),
 
+        // добавляем нового риэлтора
         async saveDataRealtor() {
             
             this.createRealtor({

@@ -70,6 +70,7 @@ export default Vue.extend({
     methods: {
         ...mapActions(['setRealtors', 'updateRealtor', 'removeRealtor', 'getArraySubdivisions']),
 
+        //обновляем риэлтора
         async saveDataRealtor() {
             
             this.updateRealtor({
@@ -101,6 +102,7 @@ export default Vue.extend({
             })
         },
 
+        //удаляем риэлтора
         async deleteRealtor() {
             this.removeRealtor(this.id)
             .then(async res => {
@@ -121,8 +123,10 @@ export default Vue.extend({
 </script>
 <style lang="scss" scoped>
     .listrealtor-component {
+        padding: 0 15px;
         &__column {
-            width: 48%;
+            max-width: 576px;
+            width: 100%;
             div {
                 text-align: left;
             }

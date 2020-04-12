@@ -1,25 +1,53 @@
 <template>
     <div class="menu">
-        <ul>
-            <li>
-                <router-link to="/">Главная</router-link>
-                <router-link  to="/newrealtor">Новый риэлтор</router-link>
-                <router-link  to="/listrealtor">Список риэлторов</router-link>
-            </li>
-            <li class="search-dot">
-                <b-field>
-                    <b-autocomplete
-                        v-model="name"
-                        placeholder="e.g. Anne"
-                        :keep-first="keepFirst"
-                        :open-on-focus="openOnFocus"
-                        :data="filteredDataObj"
-                        field="searchName"
-                        @select="option => setTemplate(option)">
-                    </b-autocomplete>
-                </b-field>
-            </li>
-        </ul>
+        <div class="menu__mobile-menu">
+           <b-button @click="openMenu"><b-icon icon="menu"></b-icon></b-button>
+            <div v-if="open" class="mobile">
+                <ul>
+                    <li>
+                        <router-link to="/">Главная</router-link>
+                        <router-link  to="/newrealtor">Новый риэлтор</router-link>
+                        <router-link  to="/listrealtor">Список риэлторов</router-link>
+                    </li>
+                    <li class="search-dot">
+                        <b-field>
+                            <b-autocomplete
+                                v-model="name"
+                                placeholder="e.g. Anne"
+                                :keep-first="keepFirst"
+                                :open-on-focus="openOnFocus"
+                                :data="filteredDataObj"
+                                field="searchName"
+                                @select="option => setTemplate(option)">
+                            </b-autocomplete>
+                        </b-field>
+                    </li>
+                </ul>
+        </div>
+        </div>
+        <div class="menu__desktop">
+            <ul>
+                <li>
+                    <router-link to="/">Главная</router-link>
+                    <router-link  to="/newrealtor">Новый риэлтор</router-link>
+                    <router-link  to="/listrealtor">Список риэлторов</router-link>
+                </li>
+                <li class="search-dot">
+                    <b-field>
+                        <b-autocomplete
+                            v-model="name"
+                            placeholder="e.g. Anne"
+                            :keep-first="keepFirst"
+                            :open-on-focus="openOnFocus"
+                            :data="filteredDataObj"
+                            field="searchName"
+                            @select="option => setTemplate(option)">
+                        </b-autocomplete>
+                    </b-field>
+                </li>
+            </ul>
+        </div>
+        
     </div>
 </template>
 <script lang="ts">
@@ -29,20 +57,22 @@ export default Vue.extend({
         realtors: Array
     },
     name:'menus',
-    data() {
-        return {
-            data:'',
-            keepFirst: false,
-            openOnFocus: false,
-            name: '',
-            idUrl:'',
+    data:() => ({
+            data: <String>'',
+            keepFirst: <Boolean>false,
+            openOnFocus: <Boolean>false,
+            name: <String>'',
+            idUrl: <String>'',
             selected: null,
-            arr: []
-        }
-    },
+            arr: [],
+            open: <Boolean>false
+        }),
     methods: {
         setTemplate(option: any) {
             this.$router.push('/updaterealtor/' + option.id)
+        },
+        openMenu() {
+            this.open = !this.open
         }
     },
     computed: {
@@ -81,6 +111,11 @@ export default Vue.extend({
                     margin: 0 10px;
                 }
             }
+        }
+        &__mobile-menu {
+                text-align: left;
+                display: none;
+                cursor: pointer;
         }
     }
 

@@ -66,14 +66,14 @@ export default Vue.extend({
     data: () => ({
             isFullPage: <Boolean>true,
             isLoading: <Boolean>true,
-            current: 1,
-            perPage: <Number>5,
+            current: <Number | Enum | Any>1,
+            perPage: <Number | Enum | Any>5,
             rangeBefore: 1,
             rangeAfter: 1,
-            order: '',
-            size: '',
-            isSimple: true,
-            isRounded: false,
+            order: <String>'',
+            size: <String>'',
+            isSimple: <Boolean>true,
+            isRounded: <Boolean>false,
             prevIcon: 'chevron-left',
             nextIcon: 'chevron-right',
             lastname: <String>'',
@@ -81,15 +81,15 @@ export default Vue.extend({
             dateFilterTo: [],
             dateFilterFrom:[],
             keys: <String>'',
-            toDate: <String>'',
-            fromDate: <String>'',
+            toDate: <String | Date | Number>'',
+            fromDate: <String | Date | Number>'',
             self: <Object>{to: <String>'', from: <String>''},
-            resultArr: [],
-            radio: true
+            resultArr: []
         }),
     methods: {
         ...mapActions(['getArrayRealtors']),
 
+        //используемый фильтр
         keysSwitch(val: string) {
             this.keys = val
         },
@@ -106,6 +106,7 @@ export default Vue.extend({
             }
         },
 
+        //preloader
         openLoading() {
             this.isLoading = true
             setTimeout(() => {
@@ -115,6 +116,7 @@ export default Vue.extend({
     },
     computed:{
 
+        //пагинация
         arrayRealtorPaginate() {
             
             const start = this.perPage * this.current - 5,
@@ -135,10 +137,12 @@ export default Vue.extend({
             return this.realtors.slice(start, end);
         },
 
+        //возращает данные после пагинации
         resultRealtor() {
             return this.arrayRealtorPaginate
         },
 
+        //фильтр по фамилии
         filterLastname(): Array<any> {
 
             return this.realtors.filter((item: any) => {
@@ -151,6 +155,7 @@ export default Vue.extend({
             })
         },
 
+        //фильтр по дате
         filterDate(): Array<any> {
             
             return this.realtors.filter((item: any) => {
@@ -166,13 +171,7 @@ export default Vue.extend({
                     } else if (((this.self.to === 'to') && (Date.parse(item.date) >= new Date(this.toDate))) || 
                         ((this.self.from === 'from') && (Date.parse(item.date) <= new Date(this.fromDate)))) {
                             return item
-                        }
-                    /*
-                    if (
-                        ((this.self.to === 'to') && (Date.parse(item.date) >= new Date(this.toDate))) || 
-                        ((this.self.from === 'from') && (Date.parse(item.date) <= new Date(this.fromDate)))) {
-                            return item
-                    }*/
+                    }
                 } 
             })
         }
@@ -187,10 +186,11 @@ export default Vue.extend({
 </script>
 <style lang="scss">
     .filter-panel {
-        padding: 15px 0;
+        padding: 15px;
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
+        flex-wrap: wrap;
 
         .field {
             text-align: left;

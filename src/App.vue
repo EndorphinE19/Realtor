@@ -126,6 +126,32 @@ $w:white;
           box-shadow: 1px 1px 10px 1px #DFDFDF;
         }
     }
+
+    @media screen and (max-width:767px) {
+        .menu {
+            &__mobile-menu {
+                display: block;
+            }
+            &__desktop {
+              display: none;
+            }
+        }
+
+        .mobile ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .mobile ul li:first-of-type {
+              margin: 0 auto 0 0;
+            }
+            .mobile ul li {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+    }
 }
 
 #nav {
