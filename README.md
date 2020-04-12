@@ -4,9 +4,12 @@
 ```
 npm install
 
-and
+after
+
 npm install buefy
-and
+
+after
+
 npm install firebase
 ```
 
