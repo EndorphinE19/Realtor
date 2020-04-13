@@ -3,10 +3,10 @@
         <div class="listrealtor-component__column">
             <div class="inputNewRealtor">
                 <b-field label="Имя">
-                    <b-input type="text" v-model="firstname"></b-input>
+                    <b-input required type="text" v-model="firstname"></b-input>
                 </b-field>
                 <b-field label="Фамилия">
-                    <b-input type="text" v-model="lastname"></b-input>
+                    <b-input required type="text" v-model="lastname"></b-input>
                 </b-field>
                 <b-field label="Подразделение">
                     <b-select placeholder="Подразделение" v-model="subdivision">
@@ -45,32 +45,35 @@ export default Vue.extend({
 
         // добавляем нового риэлтора
         async saveDataRealtor() {
-            
-            this.createRealtor({
-                firstname: this.firstname,
-                lastname: this.lastname,
-                subdivision: this.subdivision,
-                date: Date.parse(String(this.date))
-            })
-            .then(res => {
-                this.$buefy.dialog.alert('Риэлтор успешно добавлен!')
 
-                setTimeout(() => {
-                    window.location.href = '/listrealtor'
-                }, this.timeRedirect)
-            })
-            .catch(e => {
-                this.$buefy.dialog.alert({
-                    title: 'Ошибка',
-                    message: 'Не удалось внести изменения, попробуйте позжу!',
-                    type: 'is-danger',
-                    hasIcon: true,
-                    icon: 'times-circle',
-                    iconPack: 'fa',
-                    ariaRole: 'alertdialog',
-                    ariaModal: true
+            if (this.firstname && this.lastname && this.subdivision && this.date) {
+                
+                this.createRealtor({
+                    firstname: this.firstname,
+                    lastname: this.lastname,
+                    subdivision: this.subdivision,
+                    date: Date.parse(String(this.date))
                 })
-            })
+                .then(res => {
+                    this.$buefy.dialog.alert('Риэлтор успешно добавлен!')
+
+                    setTimeout(() => {
+                        window.location.href = '/listrealtor'
+                    }, this.timeRedirect)
+                })
+                .catch(e => {
+                    this.$buefy.dialog.alert({
+                        title: 'Ошибка',
+                        message: 'Не удалось внести изменения, попробуйте позжу!',
+                        type: 'is-danger',
+                        hasIcon: true,
+                        icon: 'times-circle',
+                        iconPack: 'fa',
+                        ariaRole: 'alertdialog',
+                        ariaModal: true
+                    })
+                })   
+            }
         }
     },
     computed: {

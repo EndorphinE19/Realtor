@@ -16,13 +16,13 @@
         <div v-else-if="$route.params.id" class="flex">
             <div class="listrealtor-component__column" v-for="item in resultRealtor" :key="item.id">
                 <div :class="{inputUpdateRealtor : isUpdate}">
-                    <b-input type="hidden" v-model="item.id" :value="id= item.id"></b-input>
-                    <b-input type="hidden" v-model="item.guid" :value="guid= item.guid"></b-input>
+                    <b-input required type="hidden" v-model="item.id" :value="id= item.id"></b-input>
+                    <b-input required type="hidden" v-model="item.guid" :value="guid= item.guid"></b-input>
                     <b-field label="Имя">
-                        <b-input type="text" v-model="item.firstname" :value="firstname = item.firstname"></b-input>
+                        <b-input required type="text" v-model="item.firstname" :value="firstname = item.firstname"></b-input>
                     </b-field>
                     <b-field label="Фамилия">
-                        <b-input type="text" v-model="item.lastname" :value="lastname = item.lastname"></b-input>
+                        <b-input required type="text" v-model="item.lastname" :value="lastname = item.lastname"></b-input>
                     </b-field>
                     <b-field label="Подразделение">
                         <b-select placeholder="Подразделение" v-model="subdivision">
