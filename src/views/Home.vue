@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    Main
+    Mainы
   </div>
 </template>
 
